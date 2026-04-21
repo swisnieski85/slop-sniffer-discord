@@ -4,6 +4,10 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.2] - 2026-04-21
+### Fixed
+- `/setup`, `/status`, and `/disable` now call `deferReply()` before any database operations, preventing Discord's 3-second interaction timeout from producing "The application did not respond" errors.
+
 ## [1.1.1] - 2026-04-21
 ### Fixed
 - `/status` now correctly requires Manage Server permission; previously any server member could invoke it.
