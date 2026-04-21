@@ -4,6 +4,10 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.5] - 2026-04-21
+### Added
+- Privacy policy section in README linking to the hosted privacy policy Gist.
+
 ## [1.1.4] - 2026-04-21
 ### Fixed
 - Replaced deprecated `.tag` with `.username` on `message.author` and `client.user`; `.tag` was removed in discord.js v14.

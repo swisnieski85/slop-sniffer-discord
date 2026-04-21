@@ -61,6 +61,12 @@ SlopSniffer will confirm and immediately begin reporting flagged messages.
 
 ---
 
+## Privacy
+
+SlopSniffer stores only your server ID and report channel ID. No message content or personal data is ever stored. [Full privacy policy.](https://gist.github.com/swisnieski85/06c9220854c1e877f9c71274a4d26ef5)
+
+---
+
 ## License
 
 [MIT](LICENSE)
