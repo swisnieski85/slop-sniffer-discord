@@ -9,7 +9,7 @@ The bot listens to every message posted in the server. When a message trips one 
 ### Heuristics
 
 - **Contrast Framing (Inline):** Negation clause followed by an em dash or similar dash (e.g. *"It's not hard — it's just unfamiliar."*)
-- **Contrast Framing (Sequential):** Negation across two consecutive sentences (e.g. *"Not because X. Because Y."* or *"I'm not X. I'm Y."*)
+- **Contrast Framing (Sequential):** Negation across two consecutive sentences (e.g. *"Not because X. Because Y."* or *"This isn't X. It's Y."*)
 - **Negative Tricolon:** Three consecutive sentences beginning with "No" or "Not", optionally resolving to "Just"
 
 ---

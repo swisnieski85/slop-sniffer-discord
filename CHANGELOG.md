@@ -4,6 +4,11 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.6] - 2026-04-21
+### Changed
+- Removed four overly broad Contrast Framing (Sequential) patterns that produced too many false positives on normal human writing: `I'm not X. I'm Y.`, `You're not X. You're Y.`, `[any negation]. It's...`, and `[any negation]. It was...`
+- Updated README heuristic example to reflect remaining patterns.
+
 ## [1.1.5] - 2026-04-21
 ### Added
 - Privacy policy section in README linking to the hosted privacy policy Gist.

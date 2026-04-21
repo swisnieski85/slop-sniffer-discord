@@ -102,21 +102,6 @@ function sniffContrastFramingSequential(text) {
       return { detected: true, reason: "Contrast Framing (Sequential)", heuristic: "contrast_framing_sequential" };
     }
 
-    if (negationRegex.test(first) && startsWithPhrase(second, "It's")) {
-      return { detected: true, reason: "Contrast Framing (Sequential)", heuristic: "contrast_framing_sequential" };
-    }
-
-    if (negationRegex.test(first) && startsWithPhrase(second, "It was")) {
-      return { detected: true, reason: "Contrast Framing (Sequential)", heuristic: "contrast_framing_sequential" };
-    }
-
-    if (startsWithPhrase(first, "I'm not ") && startsWithPhrase(second, "I'm ")) {
-      return { detected: true, reason: "Contrast Framing (Sequential)", heuristic: "contrast_framing_sequential" };
-    }
-
-    if (startsWithPhrase(first, "You're not ") && startsWithPhrase(second, "You're ")) {
-      return { detected: true, reason: "Contrast Framing (Sequential)", heuristic: "contrast_framing_sequential" };
-    }
   }
 
   return { detected: false };
