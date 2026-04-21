@@ -14,60 +14,40 @@ The bot listens to every message posted in the server. When a message trips one 
 
 ---
 
-## Setup (self-hosting)
+## Adding SlopSniffer to your server
 
-### Prerequisites
+### 1. Invite the bot
 
-- [Node.js](https://nodejs.org) (LTS)
-- A PostgreSQL database (see [Railway](https://railway.app) for easy hosting)
-- A Discord bot token (see below)
-
-### 1. Create a Discord application
-
-1. Go to the [Discord Developer Portal](https://discord.com/developers/applications) and click **New Application**.
-2. Under **Bot**, click **Add Bot**. Copy the token — this is your `DISCORD_TOKEN`.
-3. On the same page, copy the **Application ID** from the General Information tab — this is your `CLIENT_ID`.
-4. Under **Privileged Gateway Intents**, enable **Message Content Intent**.
-
-### 2. Invite the bot to your server
-
-In the Developer Portal, go to **OAuth2 → URL Generator**. Select the `bot` scope and grant these permissions:
+Use the invite link provided by the bot's listing page. When prompted, grant these permissions:
 
 - View Channels
 - Read Message History
 - Send Messages
 - Embed Links
 
-Open the generated URL in your browser and select your server.
+### 2. Create a report channel
 
-### 3. Configure environment variables
+Create a private channel visible only to moderators and admins (e.g. `#slop-reports`). This is where SlopSniffer will post flagged message reports.
 
-Copy `.env.example` to `.env` and fill in your values:
+### 3. Grant channel access (if needed)
 
-```
-DISCORD_TOKEN=your_bot_token
-CLIENT_ID=your_application_id
-DATABASE_URL=your_postgresql_connection_string
-```
+By default SlopSniffer monitors every channel it can see. If any of your channels have locked permissions, you'll need to add the SlopSniffer role explicitly:
 
-### 4. Install and run
+1. Right-click the channel → **Edit Channel** → **Permissions**
+2. Click **+** and add the **SlopSniffer** role
+3. Grant it **View Channel** and **Read Message History**
 
-```bash
-npm install
-npm start
-```
+Repeat for each locked channel you want monitored. Also add the role to your report channel with **View Channel**, **Send Messages**, and **Embed Links**.
 
-This registers the bot's slash commands with Discord and starts the bot. You should see `Logged in as ...` in the terminal.
+### 4. Configure the report channel
 
-### 5. Configure a report channel in Discord
-
-Once the bot is online, run this slash command in your server (requires **Manage Server** permission):
+In any channel, run (requires **Manage Server** permission):
 
 ```
-/setup channel:#your-report-channel
+/setup channel:#slop-reports
 ```
 
-The bot will confirm and begin reporting flagged messages to that channel.
+SlopSniffer will confirm and immediately begin reporting flagged messages.
 
 ---
 
@@ -78,16 +58,6 @@ The bot will confirm and begin reporting flagged messages to that channel.
 | `/setup channel:#channel` | Manage Server | Set the channel where reports are sent |
 | `/status` | Anyone | Show the current report channel |
 | `/disable` | Manage Server | Stop reporting for this server |
-
----
-
-## Environment variables
-
-| Variable | Description |
-|---|---|
-| `DISCORD_TOKEN` | Bot token from the Discord Developer Portal |
-| `CLIENT_ID` | Application ID from the Discord Developer Portal |
-| `DATABASE_URL` | PostgreSQL connection string |
 
 ---
 
