@@ -4,9 +4,15 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.4] - 2026-04-21
+### Fixed
+- Replaced deprecated `.tag` with `.username` on `message.author` and `client.user`; `.tag` was removed in discord.js v14.
+- Wrapped `interactionCreate` handler in try/catch — DB errors now send the user an ephemeral error reply instead of producing an unhandled promise rejection.
+- Wrapped `messageCreate` handler in try/catch — DB errors now log cleanly instead of potentially crashing the process.
+
 ## [1.1.3] - 2026-04-21
 ### Fixed
-- Added missing `interactionCreate` handler — `/setup`, `/status`, and `/disable` were registered with Discord but the bot had no code to respond to them, causing "The application did not respond" on every invocation.
+- Added missing `interactionCreate` handler.
 - `messageCreate` now reads the report channel from the database per guild instead of the hardcoded `REPORT_CHANNEL_ID` environment variable, which was never wired up to the slash command config flow.
 - `db.init()` is now called on `ready` so the `guild_configs` table is guaranteed to exist before any interaction or message arrives.
 - Slash command replies are ephemeral so only the invoking moderator sees them.
