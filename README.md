@@ -56,7 +56,7 @@ SlopSniffer will confirm and immediately begin reporting flagged messages.
 | Command | Permission required | Description |
 |---|---|---|
 | `/setup channel:#channel` | Manage Server | Set the channel where reports are sent |
-| `/status` | Anyone | Show the current report channel |
+| `/status` | Manage Server | Show the current report channel |
 | `/disable` | Manage Server | Stop reporting for this server |
 
 ---

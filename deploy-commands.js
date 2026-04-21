@@ -19,6 +19,7 @@ const commands = [
   new SlashCommandBuilder()
     .setName('status')
     .setDescription('Show the current SlopSniffer configuration for this server')
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
     .toJSON(),
 
   new SlashCommandBuilder()

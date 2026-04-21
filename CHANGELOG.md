@@ -4,6 +4,14 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.1.1] - 2026-04-21
+### Fixed
+- `/status` now correctly requires Manage Server permission; previously any server member could invoke it.
+- Replaced deprecated `message.author.tag` with `message.author.username` in report embeds.
+- Added try/catch to `messageCreate` handler to prevent unhandled promise rejections on database errors.
+- Fixed inconsistent indentation in `interactionCreate` try/catch block.
+- Fixed `/setup` permission check using `guild.members.me` instead of `guild.members.cache.get()`, which could return undefined and silently swallow the interaction reply.
+
 ## [1.1.0] - 2026-04-21
 ### Added
 - Per-server configuration via Railway's PostgreSQL: each server stores its own report channel, replacing the single hardcoded `REPORT_CHANNEL_ID` environment variable.
