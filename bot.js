@@ -3,12 +3,12 @@ require('dotenv').config();
 
 const { Client, GatewayIntentBits, EmbedBuilder } = require('discord.js');
 const SlopSniffer = require('./slopSniffer');
+const db = require('./db');
 
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
-const REPORT_CHANNEL_ID = process.env.REPORT_CHANNEL_ID;
 
-if (!DISCORD_TOKEN || !REPORT_CHANNEL_ID) {
-  console.error('Missing required environment variables. Check your .env file.');
+if (!DISCORD_TOKEN) {
+  console.error('Missing DISCORD_TOKEN environment variable.');
   process.exit(1);
 }
 
@@ -20,22 +20,66 @@ const client = new Client({
   ]
 });
 
-client.once('ready', () => {
+client.once('ready', async () => {
+  await db.init();
   console.log(`Logged in as ${client.user.tag}`);
-  console.log(`Reporting flagged messages to channel ID: ${REPORT_CHANNEL_ID}`);
+});
+
+client.on('interactionCreate', async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  const { commandName, guildId } = interaction;
+
+  if (commandName === 'setup') {
+    const channel = interaction.options.getChannel('channel');
+    await db.setConfig(guildId, channel.id);
+    await interaction.reply({
+      content: `Reports will be sent to ${channel}.`,
+      ephemeral: true,
+    });
+
+  } else if (commandName === 'status') {
+    const config = await db.getConfig(guildId);
+    if (!config) {
+      await interaction.reply({
+        content: 'SlopSniffer is not configured for this server. Use `/setup` to set a report channel.',
+        ephemeral: true,
+      });
+    } else {
+      const channel = interaction.guild.channels.cache.get(config.channel_id);
+      const channelMention = channel ? `${channel}` : `<deleted channel \`${config.channel_id}\`>`;
+      await interaction.reply({
+        content: `Reports are currently being sent to ${channelMention}.`,
+        ephemeral: true,
+      });
+    }
+
+  } else if (commandName === 'disable') {
+    const deleted = await db.deleteConfig(guildId);
+    await interaction.reply({
+      content: deleted
+        ? 'SlopSniffer has been disabled for this server.'
+        : 'SlopSniffer was not configured for this server.',
+      ephemeral: true,
+    });
+  }
 });
 
 client.on('messageCreate', async (message) => {
-  // Ignore bots and the report channel itself
   if (message.author.bot) return;
-  if (message.channelId === REPORT_CHANNEL_ID) return;
+  if (!message.guildId) return;
 
   const result = SlopSniffer.sniff(message.content);
   if (!result.detected) return;
 
-  const reportChannel = client.channels.cache.get(REPORT_CHANNEL_ID);
+  const config = await db.getConfig(message.guildId);
+  if (!config) return;
+
+  if (message.channelId === config.channel_id) return;
+
+  const reportChannel = client.channels.cache.get(config.channel_id);
   if (!reportChannel) {
-    console.error(`Report channel ${REPORT_CHANNEL_ID} not found or bot lacks access.`);
+    console.error(`Report channel ${config.channel_id} not found or bot lacks access.`);
     return;
   }
 
