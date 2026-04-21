@@ -1,0 +1,13 @@
+{
+  "name": "slop-sniffer-discord",
+  "version": "1.0.0",
+  "description": "Discord bot that detects and reports AI-generated content",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0",
+    "dotenv": "^16.0.0"
+  }
+}
