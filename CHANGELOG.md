@@ -4,6 +4,14 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.0] - 2026-04-22
+### Changed
+- Removed per-guild PostgreSQL configuration in favor of a single `REPORT_CHANNEL_ID` environment variable, simplifying hosting requirements.
+- Removed slash commands (`/setup`, `/status`, `/disable`) and `db.js`; `deploy-commands.js` now clears any previously registered commands when run manually.
+- Removed `pg` dependency.
+- Updated README to reflect simplified setup.
+- Slop Sniffer (Discord) must now host on Railway with a hard-coded REPORT_CHANNEL_ID environment variable.
+
 ## [1.1.6] - 2026-04-21
 ### Changed
 - Removed four overly broad Contrast Framing (Sequential) patterns that produced too many false positives on normal human writing: `I'm not X. I'm Y.`, `You're not X. You're Y.`, `[any negation]. It's...`, and `[any negation]. It was...`

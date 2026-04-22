@@ -1,46 +1,21 @@
 // deploy-commands.js
+// Run this once manually to clear any previously registered slash commands.
 require('dotenv').config();
 
-const { REST, Routes, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
-
-const commands = [
-  new SlashCommandBuilder()
-    .setName('setup')
-    .setDescription('Set the channel where SlopSniffer will send reports')
-    .addChannelOption(option =>
-      option
-        .setName('channel')
-        .setDescription('The channel to send reports to')
-        .setRequired(true)
-    )
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-    .toJSON(),
-
-  new SlashCommandBuilder()
-    .setName('status')
-    .setDescription('Show the current SlopSniffer configuration for this server')
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-    .toJSON(),
-
-  new SlashCommandBuilder()
-    .setName('disable')
-    .setDescription('Disable SlopSniffer reporting for this server')
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
-    .toJSON(),
-];
+const { REST, Routes } = require('discord.js');
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
   try {
-    console.log('Registering slash commands...');
+    console.log('Clearing slash commands...');
     await rest.put(
       Routes.applicationCommands(process.env.CLIENT_ID),
-      { body: commands }
+      { body: [] }
     );
-    console.log('Slash commands registered.');
+    console.log('Slash commands cleared.');
   } catch (error) {
-    console.error('Failed to register slash commands:', error);
+    console.error('Failed to clear slash commands:', error);
     process.exit(1);
   }
 })();

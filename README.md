@@ -14,22 +14,13 @@ The bot listens to every message posted in the server. When a message trips one 
 
 ---
 
-## Adding SlopSniffer to your server
+## Setup
 
-### 1. Invite the bot
-
-Use the invite link provided by the bot's listing page. When prompted, grant these permissions:
-
-- View Channels
-- Read Message History
-- Send Messages
-- Embed Links
-
-### 2. Create a report channel
+### 1. Create a report channel
 
 Create a private channel visible only to moderators and admins (e.g. `#slop-reports`). This is where SlopSniffer will post flagged message reports.
 
-### 3. Grant channel access (if needed)
+### 2. Grant channel access (if needed)
 
 By default SlopSniffer monitors every channel it can see. If any of your channels have locked permissions, you'll need to add the SlopSniffer role explicitly:
 
@@ -39,25 +30,16 @@ By default SlopSniffer monitors every channel it can see. If any of your channel
 
 Repeat for each locked channel you want monitored. Also add the role to your report channel with **View Channel**, **Send Messages**, and **Embed Links**.
 
-### 4. Configure the report channel
+### 3. Set environment variables
 
-In any channel, run (requires **Manage Server** permission):
+Set the following environment variables wherever you host the bot:
 
-```
-/setup channel:#slop-reports
-```
+| Variable | Description |
+|---|---|
+| `DISCORD_TOKEN` | Your bot's token from the Discord Developer Portal |
+| `REPORT_CHANNEL_ID` | The ID of the channel where reports should be sent |
 
-SlopSniffer will confirm and immediately begin reporting flagged messages.
-
----
-
-## Slash commands
-
-| Command | Permission required | Description |
-|---|---|---|
-| `/setup channel:#channel` | Manage Server | Set the channel where reports are sent |
-| `/status` | Manage Server | Show the current report channel |
-| `/disable` | Manage Server | Stop reporting for this server |
+To get a channel ID in Discord: right-click the channel → **Copy Channel ID** (requires Developer Mode to be enabled in Discord settings).
 
 ---
 
