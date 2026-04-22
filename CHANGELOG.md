@@ -4,6 +4,11 @@ All notable changes to slop-sniffer-discord will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and adheres to [Semantic Versioning](https://semver.org/).
 
+## [1.2.1] - 2026-04-22
+### Changed
+- Rewrote README with full self-hosting instructions: creating a Discord application, inviting the bot, deploying to Railway, and setting environment variables.
+- Corrected privacy policy statement — bot no longer stores any data.
+
 ## [1.2.0] - 2026-04-22
 ### Changed
 - Removed per-guild PostgreSQL configuration in favor of a single `REPORT_CHANNEL_ID` environment variable, simplifying hosting requirements.

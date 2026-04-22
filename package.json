@@ -1,6 +1,6 @@
 {
   "name": "slop-sniffer-discord",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Discord bot that detects and reports AI-generated content",
   "main": "bot.js",
   "scripts": {

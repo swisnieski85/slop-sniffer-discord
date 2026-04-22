@@ -14,38 +14,68 @@ The bot listens to every message posted in the server. When a message trips one 
 
 ---
 
-## Setup
+## Self-hosting on Railway
 
-### 1. Create a report channel
+SlopSniffer is designed to be self-hosted — each instance runs on your own Railway account and serves a single Discord server.
 
-Create a private channel visible only to moderators and admins (e.g. `#slop-reports`). This is where SlopSniffer will post flagged message reports.
+### 1. Create a Discord application
 
-### 2. Grant channel access (if needed)
+1. Go to the [Discord Developer Portal](https://discord.com/developers/applications) and click **New Application**
+2. Name it (e.g. "SlopSniffer") and save
+3. Go to **Bot** → click **Add Bot**
+4. Under **Privileged Gateway Intents**, enable **Message Content Intent**
+5. Copy your bot token — you'll need it later
 
-By default SlopSniffer monitors every channel it can see. If any of your channels have locked permissions, you'll need to add the SlopSniffer role explicitly:
+### 2. Invite the bot to your server
+
+1. In the Developer Portal, go to **OAuth2** → **URL Generator**
+2. Under **Scopes**, select `bot`
+3. Under **Bot Permissions**, select:
+   - View Channels
+   - Read Message History
+   - Send Messages
+   - Embed Links
+4. Copy the generated URL, open it in your browser, and invite the bot to your server
+
+### 3. Create a report channel
+
+In Discord, create a private channel visible only to moderators and admins (e.g. `#slop-reports`). This is where SlopSniffer will post flagged message reports.
+
+To get the channel ID: enable Developer Mode in Discord (User Settings → Advanced → Developer Mode), then right-click the channel → **Copy Channel ID**.
+
+### 4. Grant channel access (if needed)
+
+By default SlopSniffer monitors every channel it can see. If any channels have locked permissions, add the SlopSniffer role explicitly:
 
 1. Right-click the channel → **Edit Channel** → **Permissions**
-2. Click **+** and add the **SlopSniffer** role
+2. Click **+** and add the SlopSniffer role
 3. Grant it **View Channel** and **Read Message History**
 
 Repeat for each locked channel you want monitored. Also add the role to your report channel with **View Channel**, **Send Messages**, and **Embed Links**.
 
-### 3. Set environment variables
+### 5. Deploy to Railway
 
-Set the following environment variables wherever you host the bot:
+1. Fork this repository
+2. Create a new project at [railway.app](https://railway.app) and connect your forked repo
+3. Under **Variables**, add:
 
-| Variable | Description |
+| Variable | Value |
 |---|---|
-| `DISCORD_TOKEN` | Your bot's token from the Discord Developer Portal |
-| `REPORT_CHANNEL_ID` | The ID of the channel where reports should be sent |
+| `DISCORD_TOKEN` | Your bot token from Step 1 |
+| `REPORT_CHANNEL_ID` | The channel ID from Step 3 |
 
-To get a channel ID in Discord: right-click the channel → **Copy Channel ID** (requires Developer Mode to be enabled in Discord settings).
+Railway will deploy automatically. Check the deploy logs to confirm you see:
+
+```
+Logged in as <your bot name>
+Reporting flagged messages to channel ID: <your channel id>
+```
 
 ---
 
 ## Privacy
 
-SlopSniffer stores only your server ID and report channel ID. No message content or personal data is ever stored. [Full privacy policy.](https://gist.github.com/swisnieski85/06c9220854c1e877f9c71274a4d26ef5)
+SlopSniffer does not store any data. No message content, user information, or server data is written to any database or external service. [Full privacy policy.](https://gist.github.com/swisnieski85/06c9220854c1e877f9c71274a4d26ef5)
 
 ---
 
